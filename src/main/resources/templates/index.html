@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>今日食谱</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css"
+          th:href="@{/css/common.css}"/>
+</head>
+
+<body>
+
+<div>
+    <div>
+        <p th:object="${query}">
+            <span th:text="*{session}">WINTER</span> ->
+            <span th:text="|周*{dayOfWeek}|">周1</span> ->
+            <span th:text="*{periodOfDay}">MORNING</span>
+        </p>
+        <form class="indexFrom" th:action="@{/}" th:object="${query}">
+            <fieldset>
+                <legend>查询：</legend>
+                <p>
+                <span>时段：
+                    <span>早上<input type="radio" th:field="*{periodOfDay}" value="MORNING"></span>
+                    <span>中午<input type="radio" th:field="*{periodOfDay}" value="AFTERNOON"></span>
+                    <span>晚上<input type="radio" th:field="*{periodOfDay}" value="EVENING"></span>
+                </span>
+                    <span>周天：<select th:field="*{dayOfWeek}">
+                    <option value="1">周一</option>
+                    <option value="2">周二</option>
+                    <option value="3">周三</option>
+                    <option value="4">周四</option>
+                    <option value="5">周五</option>
+                    <option value="6">周六</option>
+                    <option value="7">周日</option>
+                </select></span>
+                    <span>季节：<select th:field="*{session}">
+                    <option value="SPRING">春</option>
+                    <option value="SUMMER">夏</option>
+                    <option value="AUTUMN">秋</option>
+                    <option value="WINTER">冬</option>
+                </select></span>
+                </p>
+                <button type="submit">查询</button>
+                <a th:href="@{/}"><button type="button">重置</button></a>
+            </fieldset>
+        </form>
+    </div>
+    <br>
+    <div th:if="${#lists.isEmpty(cookBooks)}">请先添加菜谱</div>
+    <div th:unless="${#lists.isEmpty(cookBooks)}">
+        <div class="cook" th:each="cookBook:${cookBooks}" th:object="${cookBook}">
+            <p th:text="*{dish.name}">青椒炒肉</p>
+            <p th:if="*{dish.desc}" th:text="*{dish.desc}">步骤：1.放油 2.放青椒 3.放肉 4.大火翻炒 5.出锅</p>
+            <a th:unless="*{dish.url == ''}" th:text="*{dish.url}" th:href="*{dish.url}"></a><br>
+            <a th:href="@{/remove(id=${cookBook.id})}">
+                <button>删除</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<p>
+    <a th:href="@{/add}">
+        <button>添加</button>
+    </a>
+</p>
+</body>
+
+</html>

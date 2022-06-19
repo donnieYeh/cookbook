@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>今日食谱</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<h2>添加成功！</h2>
+<div th:object="${cookBook}">
+    <p th:text="*{dish.name}">青椒炒肉</p>
+    <p th:text="*{dish.desc}">步骤：1.放油 2.放青椒 3.放肉 4.大火翻炒 5.出锅</p>
+    <p>
+        <span th:text="*{session}">WINTER</span> ->
+        <span th:text="|周*{dayOfWeek}|">周1</span> ->
+        <span th:text="*{periodOfDay}">MORNING</span>
+    </p>
+</div>
+
+<a th:href="@{/}" class="button">返回</a>
+<a th:href="@{/add}" class="button">继续添加</a>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+.addForm textarea {
+    width: 263px;
+    height: 100px;
+}
+
+.cook{
+    border: solid 1px;
+    padding: 10px;
+}
+
+.indexFrom span{
+    margin-right: 10px;
+}
+
+button{
+    margin: 10px 0;
+}
